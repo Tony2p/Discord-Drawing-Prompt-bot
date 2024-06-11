@@ -8,6 +8,20 @@ namespace DiscordBotD.commands
 {
     public class BasicCommands : BaseCommandModule
     {
+        [Command("help")]
+        public async Task Help(CommandContext ctx)
+        {
+            var message = new DiscordMessageBuilder()
+                .AddEmbed(new DiscordEmbedBuilder()
+                    .WithColor(DiscordColor.HotPink)
+                    .WithTitle("Command List")
+                    .WithDescription("**!pfp + @Username** - Get the profile picture of a server member ----- (NSFW warning if used on Aster) \n" +
+                                     "**!prompt** - Don't know what to draw? Me neither \n" +
+                                     "**!ref** - Get resource suggestions by yours truly \n"));
+
+            await ctx.Channel.SendMessageAsync(message);                                                                                                                                                                                    
+        }
+
         [Command("pfp")]
         
         public async Task ProfilePicture(CommandContext ctx, DiscordMember member) //Gets the profile picture of a chosen server member
@@ -16,23 +30,7 @@ namespace DiscordBotD.commands
             await ctx.Channel.SendMessageAsync(member.AvatarUrl);
         }
 
-        //--------------------------------------------------------------------------------------------------------------
-
-        [Command("button")]
-        public async Task Button(CommandContext ctx)
-        {
-            var message = new DiscordEmbedBuilder()
-            {
-                Title = "Button Test",
-                Color = DiscordColor.MidnightBlue,
-        };
-
-            await ctx.Channel.SendMessageAsync(message);
-
-        }
-
-
-
+               
         //--------------------------------------------------------------------------------------------------------------
 
 

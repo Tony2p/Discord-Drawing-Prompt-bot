@@ -1,5 +1,6 @@
 ﻿using DiscordBotD.commands;
 using DiscordBotD.config;
+using DiscordBotD.other;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
@@ -42,6 +43,7 @@ namespace DiscordBotD
             //setting up the task handler ready event
             Client.Ready += Client_Ready;
             Client.MessageCreated += MessageCreatedHandler;
+            Client.ComponentInteractionCreated += Client_ComponentInteractionCreated; //This event is for the button commands
 
             //setting up the commands config
             var commandsConfig = new CommandsNextConfiguration()
@@ -58,6 +60,7 @@ namespace DiscordBotD
             //registering the commands
             Commands.RegisterCommands<BasicCommands>();
             Commands.RegisterCommands<DrawingPromptCommands>();
+            Commands.RegisterCommands<Buttons>();
 
 
 
@@ -67,10 +70,53 @@ namespace DiscordBotD
 
         }
 
+        private static async Task Client_ComponentInteractionCreated(DiscordClient sender, ComponentInteractionCreateEventArgs args) //This is the event handler for the button commands
+        {
+            ReferenceCollection reference = new ReferenceCollection();
+            switch(args.Interaction.Data.CustomId)
+            {
+                case "figureButton":
+                    await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                    new DSharpPlus.Entities.DiscordInteractionResponseBuilder()
+                    .WithContent($"Mayhaps you should try \n" +
+                    $"{reference.FigureDrawing}"));
+                    break;
+
+                case "anatomyButton":
+                    await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                    new DSharpPlus.Entities.DiscordInteractionResponseBuilder()
+                    .WithContent($"I personally would use \n" +
+                    $" {reference.Anatomy}"));
+                    break;
+
+                case "colorButton":
+                    await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                    new DSharpPlus.Entities.DiscordInteractionResponseBuilder()
+                    .WithContent($"Dave recommends \n" +
+                    $" {reference.Color}"));
+                    break;
+
+                case "designButton":
+                    await args.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                    new DSharpPlus.Entities.DiscordInteractionResponseBuilder()
+                    .WithContent($"This seems helpful \n" +
+                    $" {reference.Design}"));
+                    break;
+
+
+            }
+            
+            
+        }
+
         //event handler methods
         private static async Task MessageCreatedHandler(DiscordClient sender, MessageCreateEventArgs e)
         {
-            if(e.Message.Content.ToLower() == "croissant")
+            DrawingPrompt drawingPrompt = new DrawingPrompt();
+            if (e.Message.Content.ToLower() == "idk")
+                await e.Channel.SendMessageAsync($"You dont know? How about you go and study some {drawingPrompt.AnatomyStudy}?");
+
+            if (e.Message.Content.ToLower() == "croissant")
                 await e.Channel.SendMessageAsync("quaso");
 
             if(e.Message.Content.ToLower() == "proko")

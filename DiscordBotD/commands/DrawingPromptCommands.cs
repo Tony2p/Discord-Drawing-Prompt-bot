@@ -18,17 +18,18 @@ namespace DiscordBotD.commands
 
             var drawingPrompt = new DrawingPrompt();
 
-            var msg = await new DiscordMessageBuilder()
+            var message = await new DiscordMessageBuilder()
 
-                .WithContent($"Here is your drawing prompt:{drawingPrompt.Theme} ")
+                .WithContent($"I dare you to draw me something following this prompt: \n" +
+                $"\n" +
+                $"**Theme:** {drawingPrompt.Theme} \n" +
+                $"**Subject:** {drawingPrompt.Subject} \n" +
+                $"**Cultural Inspiration:** {drawingPrompt.Culture} \n" +
+                $"**Dominant Color:** {drawingPrompt.ColorScheme} \n " +
+                $"\n" +
+                $"in {drawingPrompt.TimeLimit} minutes")
 
                 .SendAsync(ctx.Channel);
-        }
-
-        [Command("ref")] //shows websites for references
-        public async Task Reference(CommandContext ctx)
-        {
-
         }
 
     }

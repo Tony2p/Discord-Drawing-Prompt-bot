@@ -143,10 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="commands\BasicCommands.cs" />
+    <Compile Include="commands\Buttons.cs" />
     <Compile Include="commands\DrawingPromptCommands.cs" />
     <Compile Include="config\JSONReader.cs" />
     <Compile Include="other\CardSystem.cs" />
     <Compile Include="other\DrawingPrompt.cs" />
+    <Compile Include="other\Reference Collection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
