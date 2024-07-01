@@ -1,7 +1,12 @@
 Project was made to extensively learn about object oriented programming in C#.
 
+---------------------------------------------------------------------
+
 On my discord server we often ran into the issue of not being able to come up with a topic to draw daily to.
 So I decided to use that as an opportunity to write my own bot from scratch.
+
+---------------------------------------------------------------------
+First of all, I did create a JSON reader and encrypted the discord access key.
 
 The main functions and commands are:
 
